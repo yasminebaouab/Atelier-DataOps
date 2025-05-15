@@ -1,0 +1,90 @@
+[2025-05-15T09:49:34.355+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-04T00:00:00+00:00 [queued]>
+[2025-05-15T09:49:34.391+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-04T00:00:00+00:00 [queued]>
+[2025-05-15T09:49:34.392+0000] {taskinstance.py:1283} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:49:34.394+0000] {taskinstance.py:1284} INFO - Starting attempt 1 of 1
+[2025-05-15T09:49:34.394+0000] {taskinstance.py:1285} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:49:34.523+0000] {taskinstance.py:1304} INFO - Executing <Task(PythonOperator): load_csv> on 2023-05-04 00:00:00+00:00
+[2025-05-15T09:49:34.601+0000] {standard_task_runner.py:55} INFO - Started process 941 to run task
+[2025-05-15T09:49:34.613+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'load_sales_csv', 'load_csv', 'scheduled__2023-05-04T00:00:00+00:00', '--job-id', '127', '--raw', '--subdir', 'DAGS_FOLDER/load_sales.py', '--cfg-path', '/tmp/tmpul83n5h_']
+[2025-05-15T09:49:34.623+0000] {standard_task_runner.py:83} INFO - Job 127: Subtask load_csv
+[2025-05-15T09:49:35.011+0000] {task_command.py:389} INFO - Running <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-04T00:00:00+00:00 [running]> on host 1430ca430efd
+[2025-05-15T09:49:37.822+0000] {taskinstance.py:1513} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=load_sales_csv
+AIRFLOW_CTX_TASK_ID=load_csv
+AIRFLOW_CTX_EXECUTION_DATE=2023-05-04T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-05-04T00:00:00+00:00
+[2025-05-15T09:50:35.911+0000] {taskinstance.py:1483} ERROR - Received SIGTERM. Terminating subprocesses.
+[2025-05-15T09:50:36.439+0000] {taskinstance.py:1772} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1801, in _execute_context
+    dialect, self, conn, execution_options, *args, **kw
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in _init_compiled
+    for grp, m in enumerate(parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in <listcomp>
+    for grp, m in enumerate(parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/compiler.py", line 1005, in construct_params
+    if bindparam.key in params:
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1485, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+airflow.exceptions.AirflowException: Task received SIGTERM signal
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/load_sales.py", line 10, in load_csv_to_postgres
+    df.to_sql('raw_sales', engine, if_exists='replace', index=False)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/generic.py", line 2882, in to_sql
+    method=method,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 728, in to_sql
+    **engine_kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1770, in to_sql
+    **engine_kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1350, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1340, in insert_records
+    table.insert(chunksize=chunksize, method=method)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 967, in insert
+    exec_insert(conn, keys, chunk_iter)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 882, in _execute_insert
+    conn.execute(self.table.insert(), data)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1380, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 335, in _execute_on_connection
+    self, multiparams, params, execution_options
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1582, in _execute_clauseelement
+    cache_hit=cache_hit,
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1807, in _execute_context
+    e, util.text_type(statement), parameters, None, None
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 2125, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 210, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1801, in _execute_context
+    dialect, self, conn, execution_options, *args, **kw
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in _init_compiled
+    for grp, m in enumerate(parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in <listcomp>
+    for grp, m in enumerate(parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/compiler.py", line 1005, in construct_params
+    if bindparam.key in params:
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1485, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+sqlalchemy.exc.StatementError: (***.exceptions.AirflowException) Task received SIGTERM signal
+[SQL: INSERT INTO raw_sales ("InvoiceNo", "StockCode", "Description", "Quantity", "InvoiceDate", "UnitPrice", "CustomerID", "Country") VALUES (%(InvoiceNo)s, %(StockCode)s, %(Description)s, %(Quantity)s, %(InvoiceDate)s, %(UnitPrice)s, %(CustomerID)s, %(Country)s)]
+[parameters: [{'InvoiceNo': '536365', 'StockCode': '85123A', 'Description': 'WHITE HANGING HEART T-LIGHT HOLDER', 'Quantity': 6, 'InvoiceDate': '2010-12-01 08:26:0 ... (116848928 characters truncated) ...  'BAKING SET 9 PIECE RETROSPOT ', 'Quantity': 3, 'InvoiceDate': '2011-12-09 12:50:00', 'UnitPrice': 4.95, 'CustomerID': 12680.0, 'Country': 'France'}]]
+[2025-05-15T09:50:44.526+0000] {taskinstance.py:1327} INFO - Marking task as FAILED. dag_id=load_sales_csv, task_id=load_csv, execution_date=20230504T000000, start_date=20250515T094934, end_date=20250515T095044
+[2025-05-15T09:50:44.644+0000] {standard_task_runner.py:105} ERROR - Failed to execute job 127 for task load_csv ((***.exceptions.AirflowException) Task received SIGTERM signal
+[SQL: INSERT INTO raw_sales ("InvoiceNo", "StockCode", "Description", "Quantity", "InvoiceDate", "UnitPrice", "CustomerID", "Country") VALUES (%(InvoiceNo)s, %(StockCode)s, %(Description)s, %(Quantity)s, %(InvoiceDate)s, %(UnitPrice)s, %(CustomerID)s, %(Country)s)]
+[parameters: [{'InvoiceNo': '536365', 'StockCode': '85123A', 'Description': 'WHITE HANGING HEART T-LIGHT HOLDER', 'Quantity': 6, 'InvoiceDate': '2010-12-01 08:26:0 ... (116848928 characters truncated) ...  'BAKING SET 9 PIECE RETROSPOT ', 'Quantity': 3, 'InvoiceDate': '2011-12-09 12:50:00', 'UnitPrice': 4.95, 'CustomerID': 12680.0, 'Country': 'France'}]]; 941)
+[2025-05-15T09:50:51.666+0000] {local_task_job.py:224} WARNING - State of this instance has been externally set to failed. Terminating instance.
+[2025-05-15T09:50:51.677+0000] {process_utils.py:133} INFO - Sending Signals.SIGTERM to group 941. PIDs of all processes in the group: [941]
+[2025-05-15T09:50:51.677+0000] {process_utils.py:84} INFO - Sending the signal Signals.SIGTERM to group 941
+[2025-05-15T09:50:51.781+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=941, status='terminated', exitcode=1, started='09:49:34') (941) terminated with exit code 1

@@ -1,0 +1,67 @@
+[2025-05-15T09:49:46.641+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-06T00:00:00+00:00 [queued]>
+[2025-05-15T09:49:46.856+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-06T00:00:00+00:00 [queued]>
+[2025-05-15T09:49:46.856+0000] {taskinstance.py:1283} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:49:46.856+0000] {taskinstance.py:1284} INFO - Starting attempt 1 of 1
+[2025-05-15T09:49:46.856+0000] {taskinstance.py:1285} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:49:47.134+0000] {taskinstance.py:1304} INFO - Executing <Task(PythonOperator): load_csv> on 2023-05-06 00:00:00+00:00
+[2025-05-15T09:49:47.210+0000] {standard_task_runner.py:55} INFO - Started process 957 to run task
+[2025-05-15T09:49:47.255+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'load_sales_csv', 'load_csv', 'scheduled__2023-05-06T00:00:00+00:00', '--job-id', '129', '--raw', '--subdir', 'DAGS_FOLDER/load_sales.py', '--cfg-path', '/tmp/tmpblrzpptr']
+[2025-05-15T09:49:47.279+0000] {standard_task_runner.py:83} INFO - Job 129: Subtask load_csv
+[2025-05-15T09:49:48.063+0000] {task_command.py:389} INFO - Running <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-06T00:00:00+00:00 [running]> on host 1430ca430efd
+[2025-05-15T09:49:49.669+0000] {taskinstance.py:1513} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=load_sales_csv
+AIRFLOW_CTX_TASK_ID=load_csv
+AIRFLOW_CTX_EXECUTION_DATE=2023-05-06T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-05-06T00:00:00+00:00
+[2025-05-15T09:50:59.752+0000] {taskinstance.py:1483} ERROR - Received SIGTERM. Terminating subprocesses.
+[2025-05-15T09:50:59.849+0000] {taskinstance.py:1772} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/load_sales.py", line 10, in load_csv_to_postgres
+    df.to_sql('raw_sales', engine, if_exists='replace', index=False)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/generic.py", line 2882, in to_sql
+    method=method,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 728, in to_sql
+    **engine_kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1770, in to_sql
+    **engine_kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1340, in insert_records
+    table.insert(chunksize=chunksize, method=method)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 967, in insert
+    exec_insert(conn, keys, chunk_iter)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 882, in _execute_insert
+    conn.execute(self.table.insert(), data)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1380, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 335, in _execute_on_connection
+    self, multiparams, params, execution_options
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1582, in _execute_clauseelement
+    cache_hit=cache_hit,
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1944, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 2128, in _handle_dbapi_exception
+    util.raise_(exc_info[1], with_traceback=exc_info[2])
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 210, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1881, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 988, in do_executemany
+    **kwargs
+  File "/home/airflow/.local/lib/python3.7/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+  File "/usr/local/lib/python3.7/encodings/utf_8.py", line 15, in decode
+    def decode(input, errors='strict'):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1485, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+airflow.exceptions.AirflowException: Task received SIGTERM signal
+[2025-05-15T09:50:59.984+0000] {taskinstance.py:1327} INFO - Marking task as FAILED. dag_id=load_sales_csv, task_id=load_csv, execution_date=20230506T000000, start_date=20250515T094946, end_date=20250515T095059
+[2025-05-15T09:51:00.106+0000] {standard_task_runner.py:105} ERROR - Failed to execute job 129 for task load_csv (Task received SIGTERM signal; 957)
+[2025-05-15T09:51:01.026+0000] {local_task_job.py:159} INFO - Task exited with return code 1
+[2025-05-15T09:51:01.197+0000] {taskinstance.py:2582} INFO - 0 downstream tasks scheduled from follow-on schedule check

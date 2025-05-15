@@ -1,0 +1,22 @@
+[2025-05-15T09:51:01.213+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-15T00:00:00+00:00 [queued]>
+[2025-05-15T09:51:01.310+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-15T00:00:00+00:00 [queued]>
+[2025-05-15T09:51:01.311+0000] {taskinstance.py:1283} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:51:01.311+0000] {taskinstance.py:1284} INFO - Starting attempt 1 of 1
+[2025-05-15T09:51:01.311+0000] {taskinstance.py:1285} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:51:01.494+0000] {taskinstance.py:1304} INFO - Executing <Task(PythonOperator): load_csv> on 2023-05-15 00:00:00+00:00
+[2025-05-15T09:51:01.565+0000] {standard_task_runner.py:55} INFO - Started process 1026 to run task
+[2025-05-15T09:51:01.590+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'load_sales_csv', 'load_csv', 'scheduled__2023-05-15T00:00:00+00:00', '--job-id', '138', '--raw', '--subdir', 'DAGS_FOLDER/load_sales.py', '--cfg-path', '/tmp/tmppm8j86kg']
+[2025-05-15T09:51:01.604+0000] {standard_task_runner.py:83} INFO - Job 138: Subtask load_csv
+[2025-05-15T09:51:01.991+0000] {task_command.py:389} INFO - Running <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-15T00:00:00+00:00 [running]> on host 1430ca430efd
+[2025-05-15T09:51:03.862+0000] {taskinstance.py:1513} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=load_sales_csv
+AIRFLOW_CTX_TASK_ID=load_csv
+AIRFLOW_CTX_EXECUTION_DATE=2023-05-15T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-05-15T00:00:00+00:00
+[2025-05-15T09:51:25.655+0000] {taskinstance.py:1483} ERROR - Received SIGTERM. Terminating subprocesses.
+[2025-05-15T09:51:28.793+0000] {local_task_job.py:159} INFO - Task exited with return code Negsignal.SIGKILL
+[2025-05-15T09:51:29.628+0000] {taskinstance.py:2582} INFO - 0 downstream tasks scheduled from follow-on schedule check

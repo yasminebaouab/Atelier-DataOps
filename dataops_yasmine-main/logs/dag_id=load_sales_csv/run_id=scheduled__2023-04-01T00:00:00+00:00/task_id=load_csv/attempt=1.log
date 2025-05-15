@@ -1,0 +1,110 @@
+[2025-05-15T09:46:49.742+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-04-01T00:00:00+00:00 [queued]>
+[2025-05-15T09:46:49.836+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-04-01T00:00:00+00:00 [queued]>
+[2025-05-15T09:46:49.839+0000] {taskinstance.py:1283} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:46:49.840+0000] {taskinstance.py:1284} INFO - Starting attempt 1 of 1
+[2025-05-15T09:46:49.841+0000] {taskinstance.py:1285} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:46:49.960+0000] {taskinstance.py:1304} INFO - Executing <Task(PythonOperator): load_csv> on 2023-04-01 00:00:00+00:00
+[2025-05-15T09:46:50.019+0000] {standard_task_runner.py:55} INFO - Started process 760 to run task
+[2025-05-15T09:46:50.043+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'load_sales_csv', 'load_csv', 'scheduled__2023-04-01T00:00:00+00:00', '--job-id', '94', '--raw', '--subdir', 'DAGS_FOLDER/load_sales.py', '--cfg-path', '/tmp/tmpsak12d3i']
+[2025-05-15T09:46:50.067+0000] {standard_task_runner.py:83} INFO - Job 94: Subtask load_csv
+[2025-05-15T09:46:50.591+0000] {task_command.py:389} INFO - Running <TaskInstance: load_sales_csv.load_csv scheduled__2023-04-01T00:00:00+00:00 [running]> on host 1430ca430efd
+[2025-05-15T09:46:52.762+0000] {taskinstance.py:1513} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=load_sales_csv
+AIRFLOW_CTX_TASK_ID=load_csv
+AIRFLOW_CTX_EXECUTION_DATE=2023-04-01T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-04-01T00:00:00+00:00
+[2025-05-15T09:46:59.461+0000] {taskinstance.py:1772} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1901, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.DuplicateTable: relation "raw_sales" already exists
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/load_sales.py", line 10, in load_csv_to_postgres
+    df.to_sql('raw_sales', engine, if_exists='replace', index=False)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/generic.py", line 2882, in to_sql
+    method=method,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 728, in to_sql
+    **engine_kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1758, in to_sql
+    dtype=dtype,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1650, in prep_table
+    table.create()
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 867, in create
+    self._execute_create()
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 853, in _execute_create
+    self.table.create()
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/schema.py", line 962, in create
+    bind._run_ddl_visitor(ddl.SchemaGenerator, self, checkfirst=checkfirst)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 3228, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 2211, in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/visitors.py", line 524, in traverse_single
+    return meth(obj, **kw)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/ddl.py", line 900, in visit_table
+    include_foreign_key_constraints,  # noqa
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1380, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/ddl.py", line 81, in _execute_on_connection
+    self, multiparams, params, execution_options
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _execute_ddl
+    compiled,
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1944, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 2125, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 210, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1901, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.DuplicateTable) relation "raw_sales" already exists
+
+[SQL: 
+CREATE TABLE raw_sales (
+	"InvoiceNo" TEXT, 
+	"StockCode" TEXT, 
+	"Description" TEXT, 
+	"Quantity" BIGINT, 
+	"InvoiceDate" TEXT, 
+	"UnitPrice" FLOAT(53), 
+	"CustomerID" FLOAT(53), 
+	"Country" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2025-05-15T09:46:59.614+0000] {taskinstance.py:1327} INFO - Marking task as FAILED. dag_id=load_sales_csv, task_id=load_csv, execution_date=20230401T000000, start_date=20250515T094649, end_date=20250515T094659
+[2025-05-15T09:47:00.031+0000] {standard_task_runner.py:105} ERROR - Failed to execute job 94 for task load_csv ((psycopg2.errors.DuplicateTable) relation "raw_sales" already exists
+
+[SQL: 
+CREATE TABLE raw_sales (
+	"InvoiceNo" TEXT, 
+	"StockCode" TEXT, 
+	"Description" TEXT, 
+	"Quantity" BIGINT, 
+	"InvoiceDate" TEXT, 
+	"UnitPrice" FLOAT(53), 
+	"CustomerID" FLOAT(53), 
+	"Country" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/f405); 760)
+[2025-05-15T09:47:00.254+0000] {local_task_job.py:159} INFO - Task exited with return code 1
+[2025-05-15T09:47:00.350+0000] {taskinstance.py:2582} INFO - 0 downstream tasks scheduled from follow-on schedule check

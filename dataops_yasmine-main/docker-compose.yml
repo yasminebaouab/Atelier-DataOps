@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres:13
@@ -8,6 +10,8 @@ services:
       POSTGRES_DB: airflow_db
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     networks:
       - epsi_dataops_network
     healthcheck:
@@ -16,9 +20,10 @@ services:
       retries: 5
 
   airflow-init:
-    image: apache/airflow:2.5.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: epsi_dataops-airflow-init-1
-    # Add proper command to wait for postgres and initialize the database
     command: >
       bash -c "
         airflow db init &&
@@ -30,13 +35,15 @@ services:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__WEBSERVER__RBAC=True
-      - AIRFLOW__CORE__FERNET_KEY=n7YM4+01XUsIu7zxL8Dawiff7KDjeAloypPje9d7xTg=
+      - AIRFLOW__CORE__FERNET_KEY=yRgPgGe14ZDQIBY2KQFj3nXqzLcmeivDCaIKGNEgbmM=
       - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
       - AIRFLOW__CORE__LOGGING_LEVEL=INFO
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
+      - ./data:/opt/airflow/data
+      - ./dataops_project:/opt/airflow/dbt
     networks:
       - epsi_dataops_network
     depends_on:
@@ -45,15 +52,16 @@ services:
     restart: on-failure
 
   airflow-webserver:
-    image: apache/airflow:2.5.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: epsi_dataops-airflow-webserver-1
-    # Add command to start the webserver
     command: webserver
     environment:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow_db
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
-      - AIRFLOW__CORE__FERNET_KEY=n7YM4+01XUsIu7zxL8Dawiff7KDjeAloypPje9d7xTg=
-      - AIRFLOW__WEBSERVER__SECRET_KEY=ao/9Q9XwDe44GaDlzAcCchBwFEIMkHwLbkEm32cvqZw=
+      - AIRFLOW__CORE__FERNET_KEY=yRgPgGe14ZDQIBY2KQFj3nXqzLcmeivDCaIKGNEgbmM=
+      - AIRFLOW__WEBSERVER__SECRET_KEY=k8b9Ik9YOXu7tzu0BzbBvCJS/eHeOOUG7OcpAus7V/k=
       - AIRFLOW__WEBSERVER__RBAC=True
     ports:
       - "8082:8080"
@@ -61,6 +69,8 @@ services:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
+      - ./data:/opt/airflow/data  
+      - ./dataops_project:/opt/airflow/dbt
     networks:
       - epsi_dataops_network
     depends_on:
@@ -73,18 +83,21 @@ services:
       retries: 5
 
   airflow-scheduler:
-    image: apache/airflow:2.5.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: epsi_dataops-airflow-scheduler-1
-    # Add command to start the scheduler
     command: scheduler
     environment:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow_db
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
-      - AIRFLOW__CORE__FERNET_KEY=n7YM4+01XUsIu7zxL8Dawiff7KDjeAloypPje9d7xTg=
+      - AIRFLOW__CORE__FERNET_KEY=yRgPgGe14ZDQIBY2KQFj3nXqzLcmeivDCaIKGNEgbmM=
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
+      - ./data:/opt/airflow/data
+      - ./dataops_project:/opt/airflow/dbt
     networks:
       - epsi_dataops_network
     depends_on:

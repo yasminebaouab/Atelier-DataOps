@@ -1,0 +1,22 @@
+[2025-05-15T09:42:27.919+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-02-12T00:00:00+00:00 [queued]>
+[2025-05-15T09:42:28.027+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-02-12T00:00:00+00:00 [queued]>
+[2025-05-15T09:42:28.028+0000] {taskinstance.py:1283} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:42:28.028+0000] {taskinstance.py:1284} INFO - Starting attempt 1 of 1
+[2025-05-15T09:42:28.028+0000] {taskinstance.py:1285} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:42:28.397+0000] {taskinstance.py:1304} INFO - Executing <Task(PythonOperator): load_csv> on 2023-02-12 00:00:00+00:00
+[2025-05-15T09:42:28.506+0000] {standard_task_runner.py:55} INFO - Started process 488 to run task
+[2025-05-15T09:42:28.572+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'load_sales_csv', 'load_csv', 'scheduled__2023-02-12T00:00:00+00:00', '--job-id', '46', '--raw', '--subdir', 'DAGS_FOLDER/load_sales.py', '--cfg-path', '/tmp/tmp495hx_xg']
+[2025-05-15T09:42:28.609+0000] {standard_task_runner.py:83} INFO - Job 46: Subtask load_csv
+[2025-05-15T09:42:29.035+0000] {task_command.py:389} INFO - Running <TaskInstance: load_sales_csv.load_csv scheduled__2023-02-12T00:00:00+00:00 [running]> on host 1430ca430efd
+[2025-05-15T09:42:31.088+0000] {taskinstance.py:1513} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=load_sales_csv
+AIRFLOW_CTX_TASK_ID=load_csv
+AIRFLOW_CTX_EXECUTION_DATE=2023-02-12T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-02-12T00:00:00+00:00
+[2025-05-15T09:43:28.457+0000] {taskinstance.py:1483} ERROR - Received SIGTERM. Terminating subprocesses.
+[2025-05-15T09:43:32.850+0000] {local_task_job.py:159} INFO - Task exited with return code Negsignal.SIGKILL
+[2025-05-15T09:43:32.931+0000] {taskinstance.py:2582} INFO - 0 downstream tasks scheduled from follow-on schedule check

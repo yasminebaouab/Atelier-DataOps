@@ -1,0 +1,266 @@
+[2025-05-15T09:49:30.950+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-04-30T00:00:00+00:00 [queued]>
+[2025-05-15T09:49:31.045+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-04-30T00:00:00+00:00 [queued]>
+[2025-05-15T09:49:31.046+0000] {taskinstance.py:1283} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:49:31.046+0000] {taskinstance.py:1284} INFO - Starting attempt 1 of 1
+[2025-05-15T09:49:31.046+0000] {taskinstance.py:1285} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:49:31.123+0000] {taskinstance.py:1304} INFO - Executing <Task(PythonOperator): load_csv> on 2023-04-30 00:00:00+00:00
+[2025-05-15T09:49:31.152+0000] {standard_task_runner.py:55} INFO - Started process 934 to run task
+[2025-05-15T09:49:31.174+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'load_sales_csv', 'load_csv', 'scheduled__2023-04-30T00:00:00+00:00', '--job-id', '123', '--raw', '--subdir', 'DAGS_FOLDER/load_sales.py', '--cfg-path', '/tmp/tmp_esotqfn']
+[2025-05-15T09:49:31.182+0000] {standard_task_runner.py:83} INFO - Job 123: Subtask load_csv
+[2025-05-15T09:49:31.796+0000] {task_command.py:389} INFO - Running <TaskInstance: load_sales_csv.load_csv scheduled__2023-04-30T00:00:00+00:00 [running]> on host 1430ca430efd
+[2025-05-15T09:49:33.220+0000] {taskinstance.py:1513} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=load_sales_csv
+AIRFLOW_CTX_TASK_ID=load_csv
+AIRFLOW_CTX_EXECUTION_DATE=2023-04-30T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-04-30T00:00:00+00:00
+[2025-05-15T09:50:02.911+0000] {taskinstance.py:1483} ERROR - Received SIGTERM. Terminating subprocesses.
+[2025-05-15T09:50:02.985+0000] {taskinstance.py:1772} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1801, in _execute_context
+    dialect, self, conn, execution_options, *args, **kw
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in _init_compiled
+    for grp, m in enumerate(parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in <listcomp>
+    for grp, m in enumerate(parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/compiler.py", line 1005, in construct_params
+    if bindparam.key in params:
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1485, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+airflow.exceptions.AirflowException: Task received SIGTERM signal
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/load_sales.py", line 10, in load_csv_to_postgres
+    df.to_sql('raw_sales', engine, if_exists='replace', index=False)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/generic.py", line 2882, in to_sql
+    method=method,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 728, in to_sql
+    **engine_kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1770, in to_sql
+    **engine_kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1350, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1340, in insert_records
+    table.insert(chunksize=chunksize, method=method)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 967, in insert
+    exec_insert(conn, keys, chunk_iter)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 882, in _execute_insert
+    conn.execute(self.table.insert(), data)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1380, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 335, in _execute_on_connection
+    self, multiparams, params, execution_options
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1582, in _execute_clauseelement
+    cache_hit=cache_hit,
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1807, in _execute_context
+    e, util.text_type(statement), parameters, None, None
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 2125, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 210, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1801, in _execute_context
+    dialect, self, conn, execution_options, *args, **kw
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in _init_compiled
+    for grp, m in enumerate(parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in <listcomp>
+    for grp, m in enumerate(parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/sqlalchemy/sql/compiler.py", line 1005, in construct_params
+    if bindparam.key in params:
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1485, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+sqlalchemy.exc.StatementError: (***.exceptions.AirflowException) Task received SIGTERM signal
+[SQL: INSERT INTO raw_sales ("InvoiceNo", "StockCode", "Description", "Quantity", "InvoiceDate", "UnitPrice", "CustomerID", "Country") VALUES (%(InvoiceNo)s, %(StockCode)s, %(Description)s, %(Quantity)s, %(InvoiceDate)s, %(UnitPrice)s, %(CustomerID)s, %(Country)s)]
+[parameters: [{'InvoiceNo': '536365', 'StockCode': '85123A', 'Description': 'WHITE HANGING HEART T-LIGHT HOLDER', 'Quantity': 6, 'InvoiceDate': '2010-12-01 08:26:0 ... (116848928 characters truncated) ...  'BAKING SET 9 PIECE RETROSPOT ', 'Quantity': 3, 'InvoiceDate': '2011-12-09 12:50:00', 'UnitPrice': 4.95, 'CustomerID': 12680.0, 'Country': 'France'}]]
+[2025-05-15T09:50:10.550+0000] {taskinstance.py:1327} INFO - Marking task as FAILED. dag_id=load_sales_csv, task_id=load_csv, execution_date=20230430T000000, start_date=20250515T094930, end_date=20250515T095010
+[2025-05-15T09:50:17.642+0000] {local_task_job.py:224} WARNING - State of this instance has been externally set to failed. Terminating instance.
+[2025-05-15T09:50:17.654+0000] {process_utils.py:133} INFO - Sending Signals.SIGTERM to group 934. PIDs of all processes in the group: [934]
+[2025-05-15T09:50:17.656+0000] {process_utils.py:84} INFO - Sending the signal Signals.SIGTERM to group 934
+[2025-05-15T09:50:17.658+0000] {taskinstance.py:1483} ERROR - Received SIGTERM. Terminating subprocesses.
+[2025-05-15T09:50:17.677+0000] {logging_mixin.py:137} WARNING - --- Logging error ---
+[2025-05-15T09:50:27.000+0000] {logging_mixin.py:137} WARNING - Traceback (most recent call last):
+[2025-05-15T09:50:27.003+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1801, in _execute_context
+    dialect, self, conn, execution_options, *args, **kw
+[2025-05-15T09:50:27.005+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in _init_compiled
+    for grp, m in enumerate(parameters)
+[2025-05-15T09:50:27.006+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in <listcomp>
+    for grp, m in enumerate(parameters)
+[2025-05-15T09:50:27.007+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/sql/compiler.py", line 1005, in construct_params
+    if bindparam.key in params:
+[2025-05-15T09:50:27.007+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/models/taskinstance.py", line 1485, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+[2025-05-15T09:50:27.009+0000] {logging_mixin.py:137} WARNING - ***.exceptions.AirflowException: Task received SIGTERM signal
+[2025-05-15T09:50:27.010+0000] {logging_mixin.py:137} WARNING - 
+The above exception was the direct cause of the following exception:
+[2025-05-15T09:50:27.010+0000] {logging_mixin.py:137} WARNING - Traceback (most recent call last):
+[2025-05-15T09:50:27.010+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/task/task_runner/standard_task_runner.py", line 95, in _start_by_fork
+    args.func(args, dag=self.dag)
+[2025-05-15T09:50:27.011+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/cli_parser.py", line 52, in command
+    return func(*args, **kwargs)
+[2025-05-15T09:50:27.012+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/utils/cli.py", line 108, in wrapper
+    return f(*args, **kwargs)
+[2025-05-15T09:50:27.013+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/commands/task_command.py", line 396, in task_run
+    _run_task_by_selected_method(args, dag, ti)
+[2025-05-15T09:50:27.015+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/commands/task_command.py", line 195, in _run_task_by_selected_method
+    _run_raw_task(args, ti)
+[2025-05-15T09:50:27.016+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/commands/task_command.py", line 272, in _run_raw_task
+    pool=args.pool,
+[2025-05-15T09:50:27.016+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/utils/session.py", line 75, in wrapper
+    return func(*args, session=session, **kwargs)
+[2025-05-15T09:50:27.016+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/models/taskinstance.py", line 1378, in _run_raw_task
+    self._execute_task_with_callbacks(context, test_mode)
+[2025-05-15T09:50:27.016+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/models/taskinstance.py", line 1524, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+[2025-05-15T09:50:27.017+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/models/taskinstance.py", line 1585, in _execute_task
+    result = execute_callable(context=context)
+[2025-05-15T09:50:27.018+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+[2025-05-15T09:50:27.020+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+[2025-05-15T09:50:27.021+0000] {logging_mixin.py:137} WARNING -   File "/opt/***/dags/load_sales.py", line 10, in load_csv_to_postgres
+    df.to_sql('raw_sales', engine, if_exists='replace', index=False)
+[2025-05-15T09:50:27.021+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/pandas/core/generic.py", line 2882, in to_sql
+    method=method,
+[2025-05-15T09:50:27.021+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 728, in to_sql
+    **engine_kwargs,
+[2025-05-15T09:50:27.021+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1770, in to_sql
+    **engine_kwargs,
+[2025-05-15T09:50:27.025+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1350, in insert_records
+    raise err
+[2025-05-15T09:50:27.026+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 1340, in insert_records
+    table.insert(chunksize=chunksize, method=method)
+[2025-05-15T09:50:27.026+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 967, in insert
+    exec_insert(conn, keys, chunk_iter)
+[2025-05-15T09:50:27.026+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/pandas/io/sql.py", line 882, in _execute_insert
+    conn.execute(self.table.insert(), data)
+[2025-05-15T09:50:27.026+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1380, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+[2025-05-15T09:50:27.027+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 335, in _execute_on_connection
+    self, multiparams, params, execution_options
+[2025-05-15T09:50:27.027+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1582, in _execute_clauseelement
+    cache_hit=cache_hit,
+[2025-05-15T09:50:27.027+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1807, in _execute_context
+    e, util.text_type(statement), parameters, None, None
+[2025-05-15T09:50:27.027+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 2125, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+[2025-05-15T09:50:27.028+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 210, in raise_
+    raise exception
+[2025-05-15T09:50:27.028+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1801, in _execute_context
+    dialect, self, conn, execution_options, *args, **kw
+[2025-05-15T09:50:27.030+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in _init_compiled
+    for grp, m in enumerate(parameters)
+[2025-05-15T09:50:27.031+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 1008, in <listcomp>
+    for grp, m in enumerate(parameters)
+[2025-05-15T09:50:27.034+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/sql/compiler.py", line 1005, in construct_params
+    if bindparam.key in params:
+[2025-05-15T09:50:27.035+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/models/taskinstance.py", line 1485, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+[2025-05-15T09:50:27.035+0000] {logging_mixin.py:137} WARNING - sqlalchemy.exc.StatementError: (***.exceptions.AirflowException) Task received SIGTERM signal
+[SQL: INSERT INTO raw_sales ("InvoiceNo", "StockCode", "Description", "Quantity", "InvoiceDate", "UnitPrice", "CustomerID", "Country") VALUES (%(InvoiceNo)s, %(StockCode)s, %(Description)s, %(Quantity)s, %(InvoiceDate)s, %(UnitPrice)s, %(CustomerID)s, %(Country)s)]
+[parameters: [{'InvoiceNo': '536365', 'StockCode': '85123A', 'Description': 'WHITE HANGING HEART T-LIGHT HOLDER', 'Quantity': 6, 'InvoiceDate': '2010-12-01 08:26:0 ... (116848928 characters truncated) ...  'BAKING SET 9 PIECE RETROSPOT ', 'Quantity': 3, 'InvoiceDate': '2011-12-09 12:50:00', 'UnitPrice': 4.95, 'CustomerID': 12680.0, 'Country': 'France'}]]
+[2025-05-15T09:50:27.035+0000] {logging_mixin.py:137} WARNING - 
+During handling of the above exception, another exception occurred:
+[2025-05-15T09:50:27.035+0000] {logging_mixin.py:137} WARNING - Traceback (most recent call last):
+[2025-05-15T09:50:27.035+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 1025, in emit
+    msg = self.format(record)
+[2025-05-15T09:50:27.036+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 869, in format
+    return fmt.format(record)
+[2025-05-15T09:50:27.036+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 608, in format
+    record.message = record.getMessage()
+[2025-05-15T09:50:27.038+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 369, in getMessage
+    msg = msg % self.args
+[2025-05-15T09:50:27.039+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/exc.py", line 101, in __str__
+    return self._sql_message(compat.py3k)
+[2025-05-15T09:50:27.039+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/exc.py", line 482, in _sql_message
+    details.append("[parameters: %r]" % params_repr)
+[2025-05-15T09:50:27.039+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/sql/util.py", line 522, in __repr__
+    return self.trunc(self.params)
+[2025-05-15T09:50:27.043+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/sqlalchemy/sql/util.py", line 472, in trunc
+    rep = repr(value)
+[2025-05-15T09:50:27.044+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/models/taskinstance.py", line 1485, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+[2025-05-15T09:50:27.044+0000] {logging_mixin.py:137} WARNING - ***.exceptions.AirflowException: Task received SIGTERM signal
+[2025-05-15T09:50:27.044+0000] {logging_mixin.py:137} WARNING - Call stack:
+[2025-05-15T09:50:27.222+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/bin/***", line 8, in <module>
+    sys.exit(main())
+[2025-05-15T09:50:27.222+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/__main__.py", line 39, in main
+    args.func(args)
+[2025-05-15T09:50:27.222+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/cli_parser.py", line 52, in command
+    return func(*args, **kwargs)
+[2025-05-15T09:50:27.222+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/utils/cli.py", line 108, in wrapper
+    return f(*args, **kwargs)
+[2025-05-15T09:50:27.222+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/commands/scheduler_command.py", line 73, in scheduler
+    _run_scheduler_job(args=args)
+[2025-05-15T09:50:27.223+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/commands/scheduler_command.py", line 43, in _run_scheduler_job
+    job.run()
+[2025-05-15T09:50:27.223+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/jobs/base_job.py", line 247, in run
+    self._execute()
+[2025-05-15T09:50:27.223+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/jobs/scheduler_job.py", line 750, in _execute
+    self.executor.start()
+[2025-05-15T09:50:27.223+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/executors/local_executor.py", line 358, in start
+    self.impl.start()
+[2025-05-15T09:50:27.223+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/executors/local_executor.py", line 300, in start
+    worker.start()
+[2025-05-15T09:50:27.223+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/multiprocessing/process.py", line 112, in start
+    self._popen = self._Popen(self)
+[2025-05-15T09:50:27.223+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/multiprocessing/context.py", line 223, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+[2025-05-15T09:50:27.237+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+[2025-05-15T09:50:27.237+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/multiprocessing/popen_fork.py", line 20, in __init__
+    self._launch(process_obj)
+[2025-05-15T09:50:27.237+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/multiprocessing/popen_fork.py", line 74, in _launch
+    code = process_obj._bootstrap()
+[2025-05-15T09:50:27.237+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/multiprocessing/process.py", line 297, in _bootstrap
+    self.run()
+[2025-05-15T09:50:27.238+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/executors/local_executor.py", line 69, in run
+    return super().run()
+[2025-05-15T09:50:27.238+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/multiprocessing/process.py", line 99, in run
+    self._target(*self._args, **self._kwargs)
+[2025-05-15T09:50:27.238+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/executors/local_executor.py", line 192, in do_work
+    self.execute_work(key=key, command=command)
+[2025-05-15T09:50:27.238+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/executors/local_executor.py", line 86, in execute_work
+    state = self._execute_work_in_fork(command)
+[2025-05-15T09:50:27.239+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/executors/local_executor.py", line 126, in _execute_work_in_fork
+    args.func(args)
+[2025-05-15T09:50:27.239+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/cli_parser.py", line 52, in command
+    return func(*args, **kwargs)
+[2025-05-15T09:50:27.239+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/utils/cli.py", line 108, in wrapper
+    return f(*args, **kwargs)
+[2025-05-15T09:50:27.239+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/commands/task_command.py", line 396, in task_run
+    _run_task_by_selected_method(args, dag, ti)
+[2025-05-15T09:50:27.243+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/commands/task_command.py", line 193, in _run_task_by_selected_method
+    _run_task_by_local_task_job(args, ti)
+[2025-05-15T09:50:27.244+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/cli/commands/task_command.py", line 252, in _run_task_by_local_task_job
+    run_job.run()
+[2025-05-15T09:50:27.244+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/jobs/base_job.py", line 247, in run
+    self._execute()
+[2025-05-15T09:50:27.244+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/jobs/local_task_job.py", line 102, in _execute
+    self.task_runner.start()
+[2025-05-15T09:50:27.244+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/task/task_runner/standard_task_runner.py", line 43, in start
+    self.process = self._start_by_fork()
+[2025-05-15T09:50:27.244+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/task/task_runner/standard_task_runner.py", line 105, in _start_by_fork
+    os.getpid(),
+[2025-05-15T09:50:27.245+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 1407, in error
+    self._log(ERROR, msg, args, **kwargs)
+[2025-05-15T09:50:27.245+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 1514, in _log
+    self.handle(record)
+[2025-05-15T09:50:27.245+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 1524, in handle
+    self.callHandlers(record)
+[2025-05-15T09:50:27.245+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 1586, in callHandlers
+    hdlr.handle(record)
+[2025-05-15T09:50:27.245+0000] {logging_mixin.py:137} WARNING -   File "/usr/local/lib/python3.7/logging/__init__.py", line 894, in handle
+    self.emit(record)
+[2025-05-15T09:50:27.245+0000] {logging_mixin.py:137} WARNING -   File "/home/***/.local/lib/python3.7/site-packages/***/utils/log/file_task_handler.py", line 80, in emit
+    self.handler.emit(record)
+[2025-05-15T09:50:27.245+0000] {logging_mixin.py:137} WARNING - Message: 'Failed to execute job %s for task %s (%s; %r)'
+Arguments: ('123', 'load_csv', StatementError('(***.exceptions.AirflowException) Task received SIGTERM signal'), 934)
+[2025-05-15T09:50:27.563+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=934, status='terminated', exitcode=1, started='09:49:31') (934) terminated with exit code 1

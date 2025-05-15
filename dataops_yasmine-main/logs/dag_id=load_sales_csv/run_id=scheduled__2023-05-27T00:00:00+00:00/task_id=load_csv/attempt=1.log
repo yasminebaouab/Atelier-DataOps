@@ -1,0 +1,23 @@
+[2025-05-15T09:51:33.788+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-27T00:00:00+00:00 [queued]>
+[2025-05-15T09:51:33.847+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-27T00:00:00+00:00 [queued]>
+[2025-05-15T09:51:33.847+0000] {taskinstance.py:1283} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:51:33.847+0000] {taskinstance.py:1284} INFO - Starting attempt 1 of 1
+[2025-05-15T09:51:33.847+0000] {taskinstance.py:1285} INFO - 
+--------------------------------------------------------------------------------
+[2025-05-15T09:51:34.008+0000] {taskinstance.py:1304} INFO - Executing <Task(PythonOperator): load_csv> on 2023-05-27 00:00:00+00:00
+[2025-05-15T09:51:34.051+0000] {standard_task_runner.py:55} INFO - Started process 1073 to run task
+[2025-05-15T09:51:34.076+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'load_sales_csv', 'load_csv', 'scheduled__2023-05-27T00:00:00+00:00', '--job-id', '150', '--raw', '--subdir', 'DAGS_FOLDER/load_sales.py', '--cfg-path', '/tmp/tmp2qf4ucjf']
+[2025-05-15T09:51:34.087+0000] {standard_task_runner.py:83} INFO - Job 150: Subtask load_csv
+[2025-05-15T09:51:34.714+0000] {task_command.py:389} INFO - Running <TaskInstance: load_sales_csv.load_csv scheduled__2023-05-27T00:00:00+00:00 [running]> on host 1430ca430efd
+[2025-05-15T09:51:36.682+0000] {taskinstance.py:1513} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=load_sales_csv
+AIRFLOW_CTX_TASK_ID=load_csv
+AIRFLOW_CTX_EXECUTION_DATE=2023-05-27T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-05-27T00:00:00+00:00
+[2025-05-15T09:53:08.671+0000] {python.py:177} INFO - Done. Returned value was: None
+[2025-05-15T09:53:08.680+0000] {taskinstance.py:1327} INFO - Marking task as SUCCESS. dag_id=load_sales_csv, task_id=load_csv, execution_date=20230527T000000, start_date=20250515T095133, end_date=20250515T095308
+[2025-05-15T09:53:08.728+0000] {local_task_job.py:159} INFO - Task exited with return code 0
+[2025-05-15T09:53:08.741+0000] {taskinstance.py:2582} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,12 @@
+dataops_project:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: airflow
+      password: airflow
+      port: 5432
+      dbname: airflow_db
+      schema: public
+      threads: 1
